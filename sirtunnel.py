@@ -13,7 +13,7 @@ def delete(tunnel_id, caddy_api):
     req = request.Request(method='DELETE', url=delete_url)
     request.urlopen(req)
 
-if __name__ == '__main__':
+def run(args=None):
     parser = argparse.ArgumentParser("SirTunnel", description="An easy way to securely expose a webserver running on one computer via a public URL")
     parser.add_argument("--replace", action="store_true", help="Replace the domain if already part of the routes")
     parser.add_argument("--no-duplicates", action="store_true", help="Don't allow duplicate; either abort or replace depending on --replace")
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     parser.add_argument("domain", help="External domain name")
     parser.add_argument("tunnel_port", type=int, help="The tunnel port between your computer and the server per the command ssh -tr <tunnel_port>:localhost:8000")
 
-    args = parser.parse_args()
+    args = parser.parse_args(args=args)
     host = args.domain
     port = str(args.tunnel_port)
     debug = args.debug
@@ -102,3 +102,6 @@ if __name__ == '__main__':
             LOGGER.debug(str(ex))
             LOGGER.critical("Domain entry does not exist anymore. Aborting")
             break
+
+if __name__ == '__main__':
+    run()
