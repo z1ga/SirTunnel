@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import shlex
 import os
 from sirtunnel import run
